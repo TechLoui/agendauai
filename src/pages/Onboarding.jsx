@@ -85,7 +85,7 @@ export default function Onboarding() {
         ...formData,
         slug,
         workingHours,
-        slotDuration: Number(formData.slotDuration) || 30,
+        slotDuration: 20,
       }
 
       await completeOnboarding(user.uid, payload)
@@ -168,18 +168,6 @@ export default function Onboarding() {
                 placeholder="Conte um pouco sobre seu trabalho..."
                 {...register('description')}
               />
-
-              <Select
-                label="Duração padrão do slot (em minutos)"
-                defaultValue="20"
-                {...register('slotDuration')}
-              >
-                <option value="20">20 minutos</option>
-                <option value="40">40 minutos</option>
-                <option value="60">1 hora</option>
-                <option value="80">1h 20min</option>
-                <option value="120">2 horas</option>
-              </Select>
 
               <Button type="submit" fullWidth size="lg">Próximo</Button>
             </form>

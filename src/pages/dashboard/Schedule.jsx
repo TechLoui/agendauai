@@ -27,9 +27,6 @@ export default function Schedule() {
   const [workingHours, setWorkingHours] = useState(
     establishment?.workingHours || {}
   )
-  const [slotDuration, setSlotDuration] = useState(
-    String(establishment?.slotDuration || 30)
-  )
   const [advanceDays, setAdvanceDays] = useState(
     String(establishment?.advanceDays || 30)
   )
@@ -63,18 +60,16 @@ export default function Schedule() {
   async function handleSave() {
     setSaving(true)
     try {
-      const slot = Number(slotDuration)
       const advance = Number(advanceDays)
 
-      if (!slot || !advance) {
-        toast.error('Duração ou antecedência inválida.')
+      if (!advance) {
+        toast.error('Antecedência inválida.')
         setSaving(false)
         return
       }
 
       await updateEstablishment(user.uid, {
         workingHours,
-        slotDuration: slot,
         advanceDays: advance,
         blockedDates,
       })
@@ -102,47 +97,25 @@ export default function Schedule() {
         </Button>
       </div>
 
-      {/* General settings */}
-      <Card>
-        <h2 className="font-semibold text-gray-900 dark:text-white mb-5 flex items-center gap-2">
-          <Clock size={18} className="text-violet-500" />
-          Configurações gerais
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          <Select
-            label="Duração padrão do slot"
-            value={slotDuration}
-            onChange={e => setSlotDuration(e.target.value)}
-            hint="Granularidade da grade de horários"
-          >
-            <option value="20">20 minutos</option>
-            <option value="40">40 minutos</option>
-            <option value="60">1 hora</option>
-            <option value="80">1h 20min</option>
-            <option value="120">2 horas</option>
-          </Select>
-
-          <Select
-            label="Agendamentos com antecedência"
-            value={advanceDays}
-            onChange={e => setAdvanceDays(e.target.value)}
-            hint="Quantos dias no futuro o cliente pode agendar"
-          >
-            <option value="7">7 dias</option>
-            <option value="14">14 dias</option>
-            <option value="30">30 dias</option>
-            <option value="60">60 dias</option>
-            <option value="90">90 dias</option>
-          </Select>
-        </div>
-      </Card>
-
       {/* Working hours */}
       <Card>
-        <h2 className="font-semibold text-gray-900 dark:text-white mb-5 flex items-center gap-2">
-          <Clock size={18} className="text-violet-500" />
-          Horários de funcionamento
-        </h2>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">
+          <h2 className="font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+            <Clock size={18} className="text-violet-500" />
+            Horários de funcionamento
+          </h2>
+          <Select
+            value={advanceDays}
+            onChange={e => setAdvanceDays(e.target.value)}
+            hint="Dias de antecedência que o cliente pode agendar"
+          >
+            <option value="7">Até 7 dias no futuro</option>
+            <option value="14">Até 14 dias no futuro</option>
+            <option value="30">Até 30 dias no futuro</option>
+            <option value="60">Até 60 dias no futuro</option>
+            <option value="90">Até 90 dias no futuro</option>
+          </Select>
+        </div>
 
         <div className="space-y-4">
           {DAY_ORDER.map(day => {
