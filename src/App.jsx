@@ -20,6 +20,7 @@ import Services from './pages/dashboard/Services'
 import Employees from './pages/dashboard/Employees'
 import Schedule from './pages/dashboard/Schedule'
 import Profile from './pages/dashboard/Profile'
+import WhatsApp from './pages/dashboard/WhatsApp'
 
 export default function App() {
   return (
@@ -43,6 +44,7 @@ export default function App() {
                 <Route path="/dashboard/services" element={<Services />} />
                 <Route path="/dashboard/employees" element={<Employees />} />
                 <Route path="/dashboard/schedule" element={<Schedule />} />
+                <Route path="/dashboard/whatsapp" element={<WhatsApp />} />
                 <Route path="/dashboard/profile" element={<Profile />} />
               </Route>
             </Route>

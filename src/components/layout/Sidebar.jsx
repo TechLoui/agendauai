@@ -10,6 +10,7 @@ import {
   Sun,
   Moon,
   X,
+  MessageSquare,
 } from 'lucide-react'
 import { useAuth } from '../../contexts/AuthContext'
 import { useTheme } from '../../contexts/ThemeContext'
@@ -22,6 +23,7 @@ const navItems = [
   { to: '/dashboard/services', icon: Scissors, label: 'Serviços' },
   { to: '/dashboard/employees', icon: Users, label: 'Funcionários' },
   { to: '/dashboard/schedule', icon: Clock, label: 'Agenda' },
+  { to: '/dashboard/whatsapp', icon: MessageSquare, label: 'WhatsApp' },
   { to: '/dashboard/profile', icon: User, label: 'Perfil' },
 ]
 

@@ -17,18 +17,35 @@ service cloud.firestore {
         allow write: if request.auth != null && request.auth.uid == uid;
       }
 
-      // Appointments: leitura pública necessária para cálculo de slots disponíveis na página de booking
       match /appointments/{appointmentId} {
         allow read: if true;
         allow create: if true;
         allow update, delete: if request.auth != null && request.auth.uid == uid;
       }
 
-      // Employees: leitura pública (para seleção no booking), escrita apenas do dono
       match /employees/{employeeId} {
         allow read: if true;
         allow write: if request.auth != null && request.auth.uid == uid;
       }
+    }
+
+    // Status da conexão WhatsApp da plataforma — leitura pública autenticada
+    match /whatsappStatus/{docId} {
+      allow read: if request.auth != null;
+      allow write: if false; // somente backend (Admin SDK) escreve
+    }
+
+    // Fila de confirmações por estabelecimento — leitura apenas do dono
+    match /whatsappQueue/{uid} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow write: if false; // somente backend (Admin SDK) escreve
+    }
+
+    // Log de atividade WhatsApp — leitura apenas do dono
+    match /whatsappActivity/{docId} {
+      allow read: if request.auth != null
+        && resource.data.establishmentUid == request.auth.uid;
+      allow write: if false; // somente backend escreve
     }
   }
 }

@@ -11,6 +11,7 @@ import {
   onSnapshot,
 } from 'firebase/firestore'
 import { db } from '../config/firebase'
+import { enqueueForWhatsApp } from './whatsappService'
 
 function apptRef(uid) {
   return collection(db, 'establishments', uid, 'appointments')
@@ -54,6 +55,8 @@ export async function createAppointment(uid, data) {
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
   })
+  // Dispara notificação WhatsApp para o estabelecimento (não bloqueia o fluxo)
+  enqueueForWhatsApp(uid, ref.id, data)
   return ref.id
 }
 
