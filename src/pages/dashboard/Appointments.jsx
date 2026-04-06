@@ -156,9 +156,9 @@ export default function Appointments() {
                     <Card key={appt.id} padding={false}>
                       <div className="p-5">
                         <div className="flex items-start gap-4">
-                          <div className="flex-shrink-0 w-16 h-16 rounded-xl bg-green-50 dark:bg-green-950 flex flex-col items-center justify-center">
-                            <span className="text-base font-bold text-green-700 dark:text-green-300">{appt.startTime}</span>
-                            <span className="text-xs text-green-400">{appt.endTime}</span>
+                          <div className="flex-shrink-0 w-16 h-16 rounded-xl bg-amber-50 dark:bg-amber-950/50 flex flex-col items-center justify-center">
+                            <span className="text-base font-bold text-amber-600 dark:text-amber-400">{appt.startTime}</span>
+                            <span className="text-xs text-amber-500">{appt.endTime}</span>
                           </div>
 
                           <div className="flex-1 min-w-0">

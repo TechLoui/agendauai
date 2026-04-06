@@ -105,7 +105,7 @@ function Calendar({ establishment, selectedDate, onSelect }) {
                 aspect-square flex items-center justify-center rounded-xl text-sm font-medium
                 transition-all duration-150
                 ${selected
-                  ? 'bg-green-600 text-white shadow-md shadow-green-200 dark:shadow-green-900'
+                  ? 'bg-amber-400 text-amber-900 font-bold shadow-md shadow-amber-200 dark:shadow-amber-900'
                   : available
                     ? 'hover:bg-green-50 dark:hover:bg-green-950 text-gray-700 dark:text-gray-300 cursor-pointer'
                     : 'text-gray-300 dark:text-gray-700 cursor-not-allowed'
@@ -363,7 +363,7 @@ export default function Booking() {
                             <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5 line-clamp-1">{service.description}</p>
                           )}
                           <div className="flex items-center gap-3 mt-2">
-                            <span className={`text-sm font-bold ${selected ? 'text-green-600' : 'text-gray-700 dark:text-gray-300'}`}>
+                            <span className={`text-sm font-bold ${selected ? 'text-amber-500 dark:text-amber-400' : 'text-gray-700 dark:text-gray-300'}`}>
                               {formatPrice(service.price)}
                             </span>
                             <span className="text-xs text-gray-400 bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded-full">
@@ -445,7 +445,7 @@ export default function Booking() {
               <div className="bg-white dark:bg-gray-900 rounded-2xl p-4 border border-green-100 dark:border-green-900 mb-4">
                 <div className="flex justify-between text-sm mb-1">
                   <span className="text-gray-500 dark:text-gray-400">Total</span>
-                  <span className="font-bold text-gray-900 dark:text-white">{formatPrice(totalPrice)}</span>
+                  <span className="font-bold text-amber-500 dark:text-amber-400">{formatPrice(totalPrice)}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-500 dark:text-gray-400">Duração</span>
@@ -509,7 +509,7 @@ export default function Booking() {
                         className={`
                           py-2.5 rounded-xl text-sm font-medium text-center transition-all
                           ${selectedTime === time
-                            ? 'bg-green-600 text-white shadow-md shadow-green-200 dark:shadow-green-900'
+                            ? 'bg-amber-400 text-amber-900 font-bold shadow-md shadow-amber-200 dark:shadow-amber-900'
                             : available
                               ? 'bg-green-50 dark:bg-green-950 text-green-700 dark:text-green-300 hover:bg-green-100 dark:hover:bg-green-900'
                               : 'bg-gray-100 dark:bg-gray-800 text-gray-300 dark:text-gray-700 cursor-not-allowed'
@@ -573,7 +573,7 @@ export default function Booking() {
                 )}
                 <div className="flex justify-between border-t border-green-200 dark:border-green-800 pt-2 mt-2">
                   <span className="font-semibold text-gray-700 dark:text-gray-300">Total</span>
-                  <span className="font-bold text-green-700 dark:text-green-300">{formatPrice(totalPrice)}</span>
+                  <span className="font-bold text-amber-500 dark:text-amber-400">{formatPrice(totalPrice)}</span>
                 </div>
               </div>
             </div>

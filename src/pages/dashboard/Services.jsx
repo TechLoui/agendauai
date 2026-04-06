@@ -361,7 +361,7 @@ export default function Services() {
                       </p>
                     )}
                     <div className="flex items-center gap-3">
-                      <span className="text-lg font-bold text-green-600 dark:text-green-400">
+                      <span className="text-lg font-bold text-amber-500 dark:text-amber-400">
                         {formatPrice(service.price)}
                       </span>
                       <span className="text-xs text-gray-400 bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded-full">

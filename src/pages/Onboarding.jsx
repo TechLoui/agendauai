@@ -95,7 +95,7 @@ export default function Onboarding() {
       <div className="w-full max-w-xl">
         {/* Logo */}
         <div className="flex justify-center mb-8">
-          <img src="/Logo.png" alt="Agenda Uai" className="h-12 w-auto" />
+          <img src="/Logo (sem fundo).png" alt="Agenda Uai" className="h-12 w-auto" />
         </div>
 
         {/* Steps indicator */}

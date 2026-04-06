@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @theme {
+  /* Verde — cor primária "Agenda" */
   --color-primary-50: #f0fdf4;
   --color-primary-100: #dcfce7;
   --color-primary-200: #bbf7d0;
@@ -12,6 +13,19 @@
   --color-primary-800: #166534;
   --color-primary-900: #14532d;
   --color-primary-950: #052e16;
+
+  /* Âmbar — cor de acento "Uai" */
+  --color-accent-50: #fffbeb;
+  --color-accent-100: #fef3c7;
+  --color-accent-200: #fde68a;
+  --color-accent-300: #fcd34d;
+  --color-accent-400: #fbbf24;
+  --color-accent-500: #f59e0b;
+  --color-accent-600: #d97706;
+  --color-accent-700: #b45309;
+  --color-accent-800: #92400e;
+  --color-accent-900: #78350f;
+  --color-accent-950: #451a03;
 
   --font-sans: 'Inter', system-ui, sans-serif;
 }
@@ -42,23 +56,13 @@ body {
   min-height: 100svh;
 }
 
-/* Scrollbar customization */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: #86efac;
-  border-radius: 99px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #16a34a;
-}
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #fbbf24; border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: #f59e0b; }
 
-/* Smooth transitions for theme changes */
+/* Smooth transitions */
 * {
   transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }

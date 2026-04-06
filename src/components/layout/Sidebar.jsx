@@ -62,7 +62,7 @@ export default function Sidebar({ open, onClose }) {
       >
         {/* Logo & close */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100 dark:border-gray-800">
-          <img src="/Logo.png" alt="Agenda Uai" className="h-9 w-auto" />
+          <img src="/Logo (sem fundo).png" alt="Agenda Uai" className="h-9 w-auto" />
           <button onClick={onClose} className="lg:hidden p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-400">
             <X size={18} />
           </button>
@@ -100,10 +100,10 @@ export default function Sidebar({ open, onClose }) {
               onClick={onClose}
               className={({ isActive }) => `
                 flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium
-                transition-all duration-150
+                transition-all duration-150 border-l-2
                 ${isActive
-                  ? 'bg-green-50 dark:bg-green-950/60 text-green-700 dark:text-green-300'
-                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900 hover:text-gray-900 dark:hover:text-gray-200'
+                  ? 'bg-green-50 dark:bg-green-950/60 text-green-700 dark:text-green-300 border-amber-400'
+                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900 hover:text-gray-900 dark:hover:text-gray-200 border-transparent'
                 }
               `}
             >

@@ -13,7 +13,7 @@ import Card from '../../components/ui/Card'
 function StatCard({ icon: Icon, label, value, sub, color = 'green' }) {
   const colors = {
     green:  'bg-green-50 dark:bg-green-950 text-green-600 dark:text-green-400',
-    amber:  'bg-amber-50 dark:bg-amber-950 text-amber-600 dark:text-amber-400',
+    amber:  'bg-amber-50 dark:bg-amber-950/60 text-amber-500 dark:text-amber-400',
     blue:   'bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400',
     emerald:'bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400',
   }
@@ -97,7 +97,7 @@ export default function Dashboard() {
           label="Receita estimada (semana)"
           value={formatPrice(weekRevenue)}
           sub={`${weekCount} atendimentos`}
-          color="blue"
+          color="amber"
         />
       </div>
 
@@ -125,8 +125,8 @@ export default function Dashboard() {
                 key={appt.id}
                 className="flex items-center gap-4 p-4 rounded-xl bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-750 transition-colors"
               >
-                <div className="flex-shrink-0 w-14 h-14 rounded-xl bg-green-50 dark:bg-green-950 flex flex-col items-center justify-center">
-                  <span className="text-lg font-bold text-green-700 dark:text-green-300 leading-none">{appt.startTime}</span>
+                <div className="flex-shrink-0 w-14 h-14 rounded-xl bg-amber-50 dark:bg-amber-950/50 flex flex-col items-center justify-center">
+                  <span className="text-lg font-bold text-amber-600 dark:text-amber-400 leading-none">{appt.startTime}</span>
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="font-semibold text-gray-900 dark:text-white text-sm truncate">{appt.customerName}</p>

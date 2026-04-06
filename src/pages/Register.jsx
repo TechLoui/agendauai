@@ -46,7 +46,7 @@ export default function Register() {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <div className="flex justify-center mb-5">
-            <img src="/Logo.png" alt="Agenda Uai" className="h-14 w-auto" />
+            <img src="/Logo (sem fundo).png" alt="Agenda Uai" className="h-14 w-auto" />
           </div>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Criar conta</h1>
           <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">Comece a receber agendamentos hoje</p>

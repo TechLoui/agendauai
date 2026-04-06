@@ -6,6 +6,7 @@ const variants = {
   ghost: 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800',
   danger: 'bg-red-500 hover:bg-red-600 text-white',
   outline: 'border border-green-300 dark:border-green-700 text-green-700 dark:text-green-300 hover:bg-green-50 dark:hover:bg-green-950',
+  accent: 'bg-amber-400 hover:bg-amber-500 active:bg-amber-600 text-amber-900 font-semibold shadow-sm shadow-amber-200 dark:shadow-amber-900',
 }
 
 const sizes = {
