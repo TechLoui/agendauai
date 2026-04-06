@@ -63,16 +63,26 @@ export default function Schedule() {
   async function handleSave() {
     setSaving(true)
     try {
+      const slot = Number(slotDuration)
+      const advance = Number(advanceDays)
+
+      if (!slot || !advance) {
+        toast.error('Duração ou antecedência inválida.')
+        setSaving(false)
+        return
+      }
+
       await updateEstablishment(user.uid, {
         workingHours,
-        slotDuration: Number(slotDuration),
-        advanceDays: Number(advanceDays),
+        slotDuration: slot,
+        advanceDays: advance,
         blockedDates,
       })
       await refreshEstablishment()
       toast.success('Configurações salvas!')
-    } catch {
-      toast.error('Erro ao salvar.')
+    } catch (err) {
+      console.error('Erro ao salvar agenda:', err)
+      toast.error(`Erro ao salvar: ${err?.code || err?.message || 'desconhecido'}`)
     } finally {
       setSaving(false)
     }
