@@ -13,8 +13,8 @@ export default function Toggle({ checked, onChange, label, description }) {
         className={`
           relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full
           border-2 border-transparent transition-colors duration-200 ease-in-out
-          focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2
-          ${checked ? 'bg-violet-600' : 'bg-gray-200 dark:bg-gray-700'}
+          focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2
+          ${checked ? 'bg-green-600' : 'bg-gray-200 dark:bg-gray-700'}
         `}
       >
         <span

@@ -24,15 +24,9 @@ const DAY_ORDER = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'satu
 export default function Schedule() {
   const { user, establishment, refreshEstablishment } = useAuth()
 
-  const [workingHours, setWorkingHours] = useState(
-    establishment?.workingHours || {}
-  )
-  const [advanceDays, setAdvanceDays] = useState(
-    String(establishment?.advanceDays || 30)
-  )
-  const [blockedDates, setBlockedDates] = useState(
-    establishment?.blockedDates || []
-  )
+  const [workingHours, setWorkingHours] = useState(establishment?.workingHours || {})
+  const [advanceDays, setAdvanceDays] = useState(String(establishment?.advanceDays || 30))
+  const [blockedDates, setBlockedDates] = useState(establishment?.blockedDates || [])
   const [newBlockedDate, setNewBlockedDate] = useState('')
   const [saving, setSaving] = useState(false)
 
@@ -61,18 +55,12 @@ export default function Schedule() {
     setSaving(true)
     try {
       const advance = Number(advanceDays)
-
       if (!advance) {
         toast.error('Antecedência inválida.')
         setSaving(false)
         return
       }
-
-      await updateEstablishment(user.uid, {
-        workingHours,
-        advanceDays: advance,
-        blockedDates,
-      })
+      await updateEstablishment(user.uid, { workingHours, advanceDays: advance, blockedDates })
       await refreshEstablishment()
       toast.success('Configurações salvas!')
     } catch (err) {
@@ -101,7 +89,7 @@ export default function Schedule() {
       <Card>
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">
           <h2 className="font-semibold text-gray-900 dark:text-white flex items-center gap-2">
-            <Clock size={18} className="text-violet-500" />
+            <Clock size={18} className="text-green-600" />
             Horários de funcionamento
           </h2>
           <Select
@@ -117,16 +105,14 @@ export default function Schedule() {
           </Select>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-3">
           {DAY_ORDER.map(day => {
             const config = workingHours[day] || { open: false, start: '09:00', end: '18:00' }
             return (
               <div
                 key={day}
                 className={`flex flex-col sm:flex-row sm:items-center gap-4 p-4 rounded-xl transition-colors ${
-                  config.open
-                    ? 'bg-violet-50 dark:bg-violet-950/40'
-                    : 'bg-gray-50 dark:bg-gray-900'
+                  config.open ? 'bg-green-50 dark:bg-green-950/40' : 'bg-gray-50 dark:bg-gray-900'
                 }`}
               >
                 <div className="w-40 flex-shrink-0">
@@ -143,14 +129,14 @@ export default function Schedule() {
                       type="time"
                       value={config.start}
                       onChange={e => handleHourChange(day, 'start', e.target.value)}
-                      className="flex-1 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500"
+                      className="flex-1 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
                     />
                     <span className="text-gray-400 text-sm font-medium">até</span>
                     <input
                       type="time"
                       value={config.end}
                       onChange={e => handleHourChange(day, 'end', e.target.value)}
-                      className="flex-1 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500"
+                      className="flex-1 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
                     />
                   </div>
                 ) : (
@@ -165,7 +151,7 @@ export default function Schedule() {
       {/* Blocked dates */}
       <Card>
         <h2 className="font-semibold text-gray-900 dark:text-white mb-2 flex items-center gap-2">
-          <Ban size={18} className="text-violet-500" />
+          <Ban size={18} className="text-green-600" />
           Datas bloqueadas
         </h2>
         <p className="text-sm text-gray-500 dark:text-gray-400 mb-5">
@@ -178,7 +164,7 @@ export default function Schedule() {
             value={newBlockedDate}
             min={toDateString(new Date())}
             onChange={e => setNewBlockedDate(e.target.value)}
-            className="flex-1 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500"
+            className="flex-1 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
           />
           <Button icon={<Plus size={16} />} onClick={addBlockedDate}>
             Bloquear
@@ -195,10 +181,7 @@ export default function Schedule() {
                 className="flex items-center gap-2 bg-red-50 dark:bg-red-950/30 text-red-700 dark:text-red-300 px-3 py-1.5 rounded-full text-sm"
               >
                 <span>{new Date(date + 'T12:00:00').toLocaleDateString('pt-BR')}</span>
-                <button
-                  onClick={() => removeBlockedDate(date)}
-                  className="text-red-400 hover:text-red-600 ml-0.5"
-                >
+                <button onClick={() => removeBlockedDate(date)} className="text-red-400 hover:text-red-600 ml-0.5">
                   <X size={14} />
                 </button>
               </div>

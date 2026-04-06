@@ -53,7 +53,7 @@ function EmployeeForm({ employee, services, onSave, loading }) {
       <div className="flex flex-col gap-1.5">
         <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Função *</label>
         <select
-          className="w-full rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500"
+          className="w-full rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
           {...register('role', { required: 'Função obrigatória' })}
         >
           <option value="">Selecione...</option>
@@ -87,14 +87,14 @@ function EmployeeForm({ employee, services, onSave, loading }) {
                       className={`
                         flex items-center gap-3 p-3 rounded-xl border-2 cursor-pointer transition-all
                         ${checked
-                          ? 'border-violet-400 bg-violet-50 dark:bg-violet-950'
+                          ? 'border-green-400 bg-green-50 dark:bg-green-950'
                           : 'border-gray-100 dark:border-gray-800 hover:border-gray-200 dark:hover:border-gray-700'
                         }
                       `}
                     >
                       <input
                         type="checkbox"
-                        className="accent-violet-600 w-4 h-4"
+                        className="accent-green-600 w-4 h-4"
                         checked={checked}
                         onChange={e => {
                           const next = e.target.checked
@@ -103,7 +103,7 @@ function EmployeeForm({ employee, services, onSave, loading }) {
                           field.onChange(next)
                         }}
                       />
-                      <span className={`text-sm font-medium ${checked ? 'text-violet-700 dark:text-violet-300' : 'text-gray-700 dark:text-gray-300'}`}>
+                      <span className={`text-sm font-medium ${checked ? 'text-green-700 dark:text-green-300' : 'text-gray-700 dark:text-gray-300'}`}>
                         {service.name}
                       </span>
                     </label>
@@ -259,7 +259,7 @@ export default function Employees() {
                       </p>
                       <div className="flex flex-wrap gap-1.5">
                         {empServices.map(s => (
-                          <span key={s.id} className="text-xs bg-violet-50 dark:bg-violet-950 text-violet-700 dark:text-violet-300 px-2 py-0.5 rounded-full">
+                          <span key={s.id} className="text-xs bg-green-50 dark:bg-green-950 text-green-700 dark:text-green-300 px-2 py-0.5 rounded-full">
                             {s.name}
                           </span>
                         ))}

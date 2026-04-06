@@ -22,7 +22,7 @@ export default function Avatar({ src, name, size = 'md', className = '' }) {
     <div
       className={`
         ${sizes[size]} rounded-full flex-shrink-0
-        bg-gradient-to-br from-violet-400 to-purple-600
+        bg-gradient-to-br from-green-400 to-emerald-600
         flex items-center justify-center
         text-white font-semibold
         ${className}

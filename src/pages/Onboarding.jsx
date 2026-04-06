@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { CalendarDays, Store, MapPin, Clock, CheckCircle } from 'lucide-react'
+import { Store, MapPin, Clock, CheckCircle } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { useAuth } from '../contexts/AuthContext'
 import { completeOnboarding } from '../services/establishmentService'
 import { slugExists, reserveSlug } from '../services/slugService'
-import { slugify, generateUniqueSlug } from '../utils/slugify'
+import { generateUniqueSlug } from '../utils/slugify'
 import Button from '../components/ui/Button'
 import Input from '../components/ui/Input'
 import Select from '../components/ui/Select'
@@ -54,7 +54,7 @@ export default function Onboarding() {
   const [workingHours, setWorkingHours] = useState(DEFAULT_HOURS)
   const [formData, setFormData] = useState({})
 
-  const { register, handleSubmit, watch, formState: { errors } } = useForm()
+  const { register, handleSubmit, formState: { errors } } = useForm()
 
   function handleHourChange(day, field, value) {
     setWorkingHours(prev => ({
@@ -76,18 +76,8 @@ export default function Onboarding() {
   async function finishOnboarding() {
     setLoading(true)
     try {
-      const slug = await generateUniqueSlug(
-        formData.businessName,
-        slugExists
-      )
-
-      const payload = {
-        ...formData,
-        slug,
-        workingHours,
-        slotDuration: 20,
-      }
-
+      const slug = await generateUniqueSlug(formData.businessName, slugExists)
+      const payload = { ...formData, slug, workingHours, slotDuration: 20 }
       await completeOnboarding(user.uid, payload)
       await reserveSlug(slug, user.uid, formData.businessName)
       await refreshEstablishment()
@@ -101,18 +91,11 @@ export default function Onboarding() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-violet-50 to-purple-100 dark:from-gray-950 dark:to-violet-950 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-white dark:from-gray-950 dark:to-green-950 flex items-center justify-center p-4">
       <div className="w-full max-w-xl">
         {/* Logo */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-2">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-purple-700 flex items-center justify-center">
-              <CalendarDays size={20} className="text-white" />
-            </div>
-            <span className="text-2xl font-bold text-gray-900 dark:text-white">
-              Agenda <span className="text-violet-600">Uai</span>
-            </span>
-          </div>
+        <div className="flex justify-center mb-8">
+          <img src="/Logo.png" alt="Agenda Uai" className="h-12 w-auto" />
         </div>
 
         {/* Steps indicator */}
@@ -122,7 +105,7 @@ export default function Onboarding() {
               <div className={`
                 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all
                 ${i === step
-                  ? 'bg-violet-600 text-white'
+                  ? 'bg-green-600 text-white'
                   : i < step
                     ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300'
                     : 'bg-gray-100 dark:bg-gray-800 text-gray-400'
@@ -138,7 +121,7 @@ export default function Onboarding() {
           ))}
         </div>
 
-        {/* Step 0: Business info */}
+        {/* Step 0 */}
         {step === 0 && (
           <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800 p-8">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-1">Sobre seu negócio</h2>
@@ -151,7 +134,6 @@ export default function Onboarding() {
                 error={errors.businessName?.message}
                 {...register('businessName', { required: 'Nome obrigatório' })}
               />
-
               <Select
                 label="Categoria *"
                 error={errors.category?.message}
@@ -162,19 +144,17 @@ export default function Onboarding() {
                   <option key={c.value} value={c.value}>{c.label}</option>
                 ))}
               </Select>
-
               <Input
                 label="Descrição"
                 placeholder="Conte um pouco sobre seu trabalho..."
                 {...register('description')}
               />
-
               <Button type="submit" fullWidth size="lg">Próximo</Button>
             </form>
           </div>
         )}
 
-        {/* Step 1: Contact & Address */}
+        {/* Step 1 */}
         {step === 1 && (
           <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800 p-8">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-1">Contato e endereço</h2>
@@ -185,43 +165,20 @@ export default function Onboarding() {
                 label="WhatsApp (com DDD) *"
                 placeholder="31 99999-9999"
                 error={errors.whatsapp?.message}
-                {...register('whatsapp', {
-                  required: 'WhatsApp obrigatório',
-                  minLength: { value: 10, message: 'Número inválido' },
-                })}
+                {...register('whatsapp', { required: 'WhatsApp obrigatório', minLength: { value: 10, message: 'Número inválido' } })}
               />
-
-              <Input
-                label="Telefone"
-                placeholder="31 3333-3333"
-                {...register('phone')}
-              />
-
-              <Input
-                label="Endereço"
-                placeholder="Rua, número, bairro"
-                {...register('address')}
-              />
-
-              <Input
-                label="Instagram"
-                placeholder="@seuperfil"
-                {...register('instagram')}
-              />
-
+              <Input label="Telefone" placeholder="31 3333-3333" {...register('phone')} />
+              <Input label="Endereço" placeholder="Rua, número, bairro" {...register('address')} />
+              <Input label="Instagram" placeholder="@seuperfil" {...register('instagram')} />
               <div className="flex gap-3">
-                <Button type="button" variant="secondary" onClick={() => setStep(0)} fullWidth>
-                  Voltar
-                </Button>
-                <Button type="submit" fullWidth>
-                  Próximo
-                </Button>
+                <Button type="button" variant="secondary" onClick={() => setStep(0)} fullWidth>Voltar</Button>
+                <Button type="submit" fullWidth>Próximo</Button>
               </div>
             </form>
           </div>
         )}
 
-        {/* Step 2: Working Hours */}
+        {/* Step 2 */}
         {step === 2 && (
           <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800 p-8">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-1">Horários de funcionamento</h2>
@@ -243,42 +200,36 @@ export default function Onboarding() {
                         type="time"
                         value={config.start}
                         onChange={e => handleHourChange(day, 'start', e.target.value)}
-                        className="flex-1 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500"
+                        className="flex-1 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
                       />
                       <span className="text-gray-400 text-sm">até</span>
                       <input
                         type="time"
                         value={config.end}
                         onChange={e => handleHourChange(day, 'end', e.target.value)}
-                        className="flex-1 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500"
+                        className="flex-1 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
                       />
                     </div>
                   )}
-                  {!config.open && (
-                    <span className="text-sm text-gray-400 italic">Fechado</span>
-                  )}
+                  {!config.open && <span className="text-sm text-gray-400 italic">Fechado</span>}
                 </div>
               ))}
             </div>
 
             <div className="flex gap-3">
               <Button variant="secondary" onClick={() => setStep(1)} fullWidth>Voltar</Button>
-              <Button onClick={finishOnboarding} loading={loading} fullWidth>
-                Finalizar configuração
-              </Button>
+              <Button onClick={finishOnboarding} loading={loading} fullWidth>Finalizar configuração</Button>
             </div>
           </div>
         )}
 
-        {/* Step 3: Done! */}
+        {/* Step 3 */}
         {step === 3 && (
           <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800 p-8 text-center">
             <div className="w-20 h-20 rounded-full bg-green-50 dark:bg-green-950 flex items-center justify-center mx-auto mb-6">
               <CheckCircle size={40} className="text-green-500" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-              Tudo pronto!
-            </h2>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Tudo pronto!</h2>
             <p className="text-gray-500 dark:text-gray-400 mb-8">
               Seu estabelecimento está configurado. Agora adicione seus serviços e comece a receber agendamentos!
             </p>

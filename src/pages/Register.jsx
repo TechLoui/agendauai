@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { CalendarDays, Mail, Lock, User } from 'lucide-react'
+import { Mail, Lock, User } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { register as registerUser } from '../services/authService'
 import { createEstablishment } from '../services/establishmentService'
@@ -42,16 +42,11 @@ export default function Register() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-violet-50 to-purple-100 dark:from-gray-950 dark:to-violet-950 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-white dark:from-gray-950 dark:to-green-950 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-2 mb-4">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-purple-700 flex items-center justify-center">
-              <CalendarDays size={20} className="text-white" />
-            </div>
-            <span className="text-2xl font-bold text-gray-900 dark:text-white">
-              Agenda <span className="text-violet-600">Uai</span>
-            </span>
+          <div className="flex justify-center mb-5">
+            <img src="/Logo.png" alt="Agenda Uai" className="h-14 w-auto" />
           </div>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Criar conta</h1>
           <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">Comece a receber agendamentos hoje</p>
@@ -109,7 +104,7 @@ export default function Register() {
 
         <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-6">
           Já tem conta?{' '}
-          <Link to="/login" className="text-violet-600 font-medium hover:underline">
+          <Link to="/login" className="text-green-600 font-medium hover:underline">
             Entrar
           </Link>
         </p>

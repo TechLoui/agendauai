@@ -1,11 +1,11 @@
 import Spinner from './Spinner'
 
 const variants = {
-  primary: 'bg-violet-600 hover:bg-violet-700 active:bg-violet-800 text-white shadow-sm shadow-violet-200 dark:shadow-violet-900',
+  primary: 'bg-green-600 hover:bg-green-700 active:bg-green-800 text-white shadow-sm shadow-green-200 dark:shadow-green-900',
   secondary: 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-750',
   ghost: 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800',
   danger: 'bg-red-500 hover:bg-red-600 text-white',
-  outline: 'border border-violet-300 dark:border-violet-700 text-violet-700 dark:text-violet-300 hover:bg-violet-50 dark:hover:bg-violet-950',
+  outline: 'border border-green-300 dark:border-green-700 text-green-700 dark:text-green-300 hover:bg-green-50 dark:hover:bg-green-950',
 }
 
 const sizes = {

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { CalendarDays, Mail, Lock } from 'lucide-react'
+import { Mail, Lock } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { login } from '../services/authService'
 import Button from '../components/ui/Button'
@@ -31,17 +31,12 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-violet-50 to-purple-100 dark:from-gray-950 dark:to-violet-950 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-white dark:from-gray-950 dark:to-green-950 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-2 mb-4">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-purple-700 flex items-center justify-center">
-              <CalendarDays size={20} className="text-white" />
-            </div>
-            <span className="text-2xl font-bold text-gray-900 dark:text-white">
-              Agenda <span className="text-violet-600">Uai</span>
-            </span>
+          <div className="flex justify-center mb-5">
+            <img src="/Logo.png" alt="Agenda Uai" className="h-14 w-auto" />
           </div>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Entrar na conta</h1>
           <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">Acesse o painel do seu estabelecimento</p>
@@ -72,7 +67,7 @@ export default function Login() {
             />
 
             <div className="flex justify-end">
-              <Link to="/forgot-password" className="text-sm text-violet-600 hover:underline">
+              <Link to="/forgot-password" className="text-sm text-green-600 hover:underline">
                 Esqueci a senha
               </Link>
             </div>
@@ -85,7 +80,7 @@ export default function Login() {
 
         <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-6">
           Não tem conta?{' '}
-          <Link to="/register" className="text-violet-600 font-medium hover:underline">
+          <Link to="/register" className="text-green-600 font-medium hover:underline">
             Cadastrar estabelecimento
           </Link>
         </p>

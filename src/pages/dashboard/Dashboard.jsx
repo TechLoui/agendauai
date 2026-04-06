@@ -10,12 +10,12 @@ import Badge from '../../components/ui/Badge'
 import Button from '../../components/ui/Button'
 import Card from '../../components/ui/Card'
 
-function StatCard({ icon: Icon, label, value, sub, color = 'violet' }) {
+function StatCard({ icon: Icon, label, value, sub, color = 'green' }) {
   const colors = {
-    violet: 'bg-violet-50 dark:bg-violet-950 text-violet-600 dark:text-violet-400',
     green:  'bg-green-50 dark:bg-green-950 text-green-600 dark:text-green-400',
     amber:  'bg-amber-50 dark:bg-amber-950 text-amber-600 dark:text-amber-400',
     blue:   'bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400',
+    emerald:'bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400',
   }
 
   return (
@@ -89,9 +89,9 @@ export default function Dashboard() {
 
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard icon={CalendarDays} label="Agendamentos hoje" value={todayAppts.length} color="violet" />
+        <StatCard icon={CalendarDays} label="Agendamentos hoje" value={todayAppts.length} color="green" />
         <StatCard icon={Clock} label="Pendentes" value={pending.length} color="amber" />
-        <StatCard icon={CheckCircle} label="Confirmados" value={confirmed.length} color="green" />
+        <StatCard icon={CheckCircle} label="Confirmados" value={confirmed.length} color="emerald" />
         <StatCard
           icon={TrendingUp}
           label="Receita estimada (semana)"
@@ -125,8 +125,8 @@ export default function Dashboard() {
                 key={appt.id}
                 className="flex items-center gap-4 p-4 rounded-xl bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-750 transition-colors"
               >
-                <div className="flex-shrink-0 w-14 h-14 rounded-xl bg-violet-50 dark:bg-violet-950 flex flex-col items-center justify-center">
-                  <span className="text-lg font-bold text-violet-700 dark:text-violet-300 leading-none">{appt.startTime}</span>
+                <div className="flex-shrink-0 w-14 h-14 rounded-xl bg-green-50 dark:bg-green-950 flex flex-col items-center justify-center">
+                  <span className="text-lg font-bold text-green-700 dark:text-green-300 leading-none">{appt.startTime}</span>
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="font-semibold text-gray-900 dark:text-white text-sm truncate">{appt.customerName}</p>
@@ -149,13 +149,13 @@ export default function Dashboard() {
           <div className="space-y-2">
             <Link to="/dashboard/services">
               <button className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-left">
-                <Plus size={16} className="text-violet-600" />
+                <Plus size={16} className="text-green-600" />
                 <span className="text-sm text-gray-700 dark:text-gray-300">Adicionar serviço</span>
               </button>
             </Link>
             <Link to="/dashboard/schedule">
               <button className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-left">
-                <Clock size={16} className="text-violet-600" />
+                <Clock size={16} className="text-green-600" />
                 <span className="text-sm text-gray-700 dark:text-gray-300">Configurar horários</span>
               </button>
             </Link>
@@ -168,8 +168,8 @@ export default function Dashboard() {
             <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">
               Envie para seus clientes no WhatsApp, Instagram ou onde preferir.
             </p>
-            <div className="flex items-center gap-2 p-3 rounded-xl bg-violet-50 dark:bg-violet-950 border border-violet-100 dark:border-violet-900">
-              <span className="text-sm text-violet-700 dark:text-violet-300 flex-1 truncate font-mono">
+            <div className="flex items-center gap-2 p-3 rounded-xl bg-green-50 dark:bg-green-950 border border-green-100 dark:border-green-900">
+              <span className="text-sm text-green-700 dark:text-green-300 flex-1 truncate font-mono">
                 agendauai.com/book/{establishment.slug}
               </span>
               <button
@@ -177,7 +177,7 @@ export default function Dashboard() {
                   navigator.clipboard.writeText(`${window.location.origin}/book/${establishment.slug}`)
                   toast.success('Link copiado!')
                 }}
-                className="text-violet-600 text-xs font-medium hover:underline flex-shrink-0"
+                className="text-green-600 text-xs font-medium hover:underline flex-shrink-0"
               >
                 Copiar
               </button>

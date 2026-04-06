@@ -78,14 +78,7 @@ export default function Landing() {
       {/* Navbar */}
       <nav className="sticky top-0 z-50 bg-white/80 dark:bg-gray-950/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-violet-500 to-purple-700 flex items-center justify-center">
-              <CalendarDays size={16} className="text-white" />
-            </div>
-            <span className="text-xl font-bold text-gray-900 dark:text-white">
-              Agenda <span className="text-violet-600">Uai</span>
-            </span>
-          </div>
+          <img src="/Logo.png" alt="Agenda Uai" className="h-9 w-auto" />
           <div className="flex items-center gap-3">
             <Link to="/login">
               <Button variant="ghost" size="sm">Entrar</Button>
@@ -99,20 +92,20 @@ export default function Landing() {
 
       {/* Hero */}
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-violet-50 via-purple-50 to-white dark:from-violet-950/30 dark:via-purple-950/20 dark:to-gray-950 -z-10" />
-        <div className="absolute top-20 right-0 w-96 h-96 bg-violet-300/20 rounded-full blur-3xl -z-10" />
-        <div className="absolute bottom-0 left-20 w-64 h-64 bg-purple-400/10 rounded-full blur-3xl -z-10" />
+        <div className="absolute inset-0 bg-gradient-to-br from-green-50 via-emerald-50 to-white dark:from-green-950/30 dark:via-emerald-950/20 dark:to-gray-950 -z-10" />
+        <div className="absolute top-20 right-0 w-96 h-96 bg-green-300/20 rounded-full blur-3xl -z-10" />
+        <div className="absolute bottom-0 left-20 w-64 h-64 bg-amber-300/10 rounded-full blur-3xl -z-10" />
 
         <div className="max-w-6xl mx-auto px-4 py-20 md:py-32">
           <div className="max-w-3xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 bg-violet-100 dark:bg-violet-950 text-violet-700 dark:text-violet-300 text-sm font-medium px-4 py-1.5 rounded-full mb-6">
+            <div className="inline-flex items-center gap-2 bg-green-100 dark:bg-green-950 text-green-700 dark:text-green-300 text-sm font-medium px-4 py-1.5 rounded-full mb-6">
               <Zap size={14} />
               Sem mensalidade no primeiro mês
             </div>
 
             <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 dark:text-white leading-tight mb-6">
               Agendamentos online{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-purple-600">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-500">
                 sem complicação
               </span>
             </h1>
@@ -173,9 +166,9 @@ export default function Landing() {
           {features.map(({ icon: Icon, title, desc }) => (
             <div
               key={title}
-              className="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-100 dark:border-gray-800 hover:shadow-lg hover:shadow-violet-100 dark:hover:shadow-violet-900/20 transition-all duration-300 hover:-translate-y-0.5"
+              className="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-100 dark:border-gray-800 hover:shadow-lg hover:shadow-green-100 dark:hover:shadow-green-900/20 transition-all duration-300 hover:-translate-y-0.5"
             >
-              <div className="w-12 h-12 rounded-2xl bg-violet-50 dark:bg-violet-950 flex items-center justify-center text-violet-600 dark:text-violet-400 mb-4">
+              <div className="w-12 h-12 rounded-2xl bg-green-50 dark:bg-green-950 flex items-center justify-center text-green-600 dark:text-green-400 mb-4">
                 <Icon size={22} />
               </div>
               <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-2">{title}</h3>
@@ -186,11 +179,11 @@ export default function Landing() {
       </section>
 
       {/* How it works */}
-      <section className="py-20 bg-gradient-to-br from-violet-600 to-purple-700">
+      <section className="py-20 bg-gradient-to-br from-green-600 to-emerald-700">
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-14">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Como funciona</h2>
-            <p className="text-violet-200 max-w-xl mx-auto">Seu cliente agenda em menos de 2 minutos.</p>
+            <p className="text-green-200 max-w-xl mx-auto">Seu cliente agenda em menos de 2 minutos.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
@@ -205,7 +198,7 @@ export default function Landing() {
                   {n}
                 </div>
                 <h3 className="text-white font-semibold mb-1">{title}</h3>
-                <p className="text-violet-200 text-sm">{desc}</p>
+                <p className="text-green-200 text-sm">{desc}</p>
               </div>
             ))}
           </div>
@@ -269,13 +262,13 @@ export default function Landing() {
             </div>
 
             {/* Pro */}
-            <div className="bg-gradient-to-br from-violet-600 to-purple-700 rounded-2xl p-8 relative overflow-hidden">
+            <div className="bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl p-8 relative overflow-hidden">
               <div className="absolute top-4 right-4 bg-amber-400 text-amber-900 text-xs font-bold px-2 py-0.5 rounded-full">
                 MAIS POPULAR
               </div>
               <h3 className="text-lg font-bold text-white mb-1">Pro</h3>
-              <p className="text-3xl font-extrabold text-white mb-1">R$49<span className="text-base font-normal text-violet-200">/mês</span></p>
-              <p className="text-sm text-violet-200 mb-6">Para profissionais</p>
+              <p className="text-3xl font-extrabold text-white mb-1">R$49<span className="text-base font-normal text-green-200">/mês</span></p>
+              <p className="text-sm text-green-200 mb-6">Para profissionais</p>
               <ul className="space-y-3 mb-8">
                 {[
                   'Agendamentos ilimitados',
@@ -285,7 +278,7 @@ export default function Landing() {
                   'Suporte prioritário',
                   'Link personalizado',
                 ].map(f => (
-                  <li key={f} className="flex items-center gap-2 text-sm text-violet-100">
+                  <li key={f} className="flex items-center gap-2 text-sm text-green-100">
                     <CheckCircle size={16} className="text-white flex-shrink-0" /> {f}
                   </li>
                 ))}
@@ -300,7 +293,7 @@ export default function Landing() {
 
       {/* CTA */}
       <section className="py-20 max-w-6xl mx-auto px-4 text-center">
-        <div className="bg-gradient-to-br from-violet-600 to-purple-700 rounded-3xl p-12 md:p-16 relative overflow-hidden">
+        <div className="bg-gradient-to-br from-green-600 to-emerald-700 rounded-3xl p-12 md:p-16 relative overflow-hidden">
           <div className="absolute inset-0 opacity-10">
             <div className="absolute top-10 left-10 w-40 h-40 bg-white rounded-full blur-2xl" />
             <div className="absolute bottom-10 right-10 w-60 h-60 bg-white rounded-full blur-2xl" />
@@ -310,7 +303,7 @@ export default function Landing() {
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               Pronto para começar?
             </h2>
-            <p className="text-violet-200 text-lg mb-8 max-w-xl mx-auto">
+            <p className="text-green-200 text-lg mb-8 max-w-xl mx-auto">
               Junte-se a centenas de profissionais que já simplificaram seus agendamentos com o Agenda Uai.
             </p>
             <Link to="/register">
@@ -326,16 +319,11 @@ export default function Landing() {
       {/* Footer */}
       <footer className="border-t border-gray-100 dark:border-gray-800 py-8">
         <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-400">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-violet-500 to-purple-700 flex items-center justify-center">
-              <CalendarDays size={12} className="text-white" />
-            </div>
-            <span className="font-semibold text-gray-700 dark:text-gray-300">Agenda Uai</span>
-          </div>
+          <img src="/Logo.png" alt="Agenda Uai" className="h-7 w-auto" />
           <p>© 2026 Agenda Uai. Todos os direitos reservados.</p>
           <div className="flex gap-4">
-            <a href="#" className="hover:text-violet-600 transition-colors">Termos</a>
-            <a href="#" className="hover:text-violet-600 transition-colors">Privacidade</a>
+            <a href="#" className="hover:text-green-600 transition-colors">Termos</a>
+            <a href="#" className="hover:text-green-600 transition-colors">Privacidade</a>
           </div>
         </div>
       </footer>

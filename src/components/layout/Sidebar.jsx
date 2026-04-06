@@ -61,15 +61,8 @@ export default function Sidebar({ open, onClose }) {
         `}
       >
         {/* Logo & close */}
-        <div className="flex items-center justify-between px-5 py-5 border-b border-gray-100 dark:border-gray-800">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-violet-500 to-purple-700 flex items-center justify-center">
-              <CalendarDays size={16} className="text-white" />
-            </div>
-            <span className="font-bold text-gray-900 dark:text-white text-lg tracking-tight">
-              Agenda <span className="text-violet-600">Uai</span>
-            </span>
-          </div>
+        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100 dark:border-gray-800">
+          <img src="/Logo.png" alt="Agenda Uai" className="h-9 w-auto" />
           <button onClick={onClose} className="lg:hidden p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-400">
             <X size={18} />
           </button>
@@ -88,7 +81,7 @@ export default function Sidebar({ open, onClose }) {
                   href={`/book/${establishment.slug}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs text-violet-600 dark:text-violet-400 flex items-center gap-1 hover:underline"
+                  className="text-xs text-green-600 dark:text-green-400 flex items-center gap-1 hover:underline"
                 >
                   Ver página <ExternalLink size={10} />
                 </a>
@@ -98,7 +91,7 @@ export default function Sidebar({ open, onClose }) {
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 px-3 py-4 space-y-1">
+        <nav className="flex-1 px-3 py-4 space-y-0.5">
           {navItems.map(({ to, icon: Icon, label, end }) => (
             <NavLink
               key={to}
@@ -109,7 +102,7 @@ export default function Sidebar({ open, onClose }) {
                 flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium
                 transition-all duration-150
                 ${isActive
-                  ? 'bg-violet-50 dark:bg-violet-950 text-violet-700 dark:text-violet-300'
+                  ? 'bg-green-50 dark:bg-green-950/60 text-green-700 dark:text-green-300'
                   : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900 hover:text-gray-900 dark:hover:text-gray-200'
                 }
               `}
@@ -121,7 +114,7 @@ export default function Sidebar({ open, onClose }) {
         </nav>
 
         {/* Bottom actions */}
-        <div className="px-3 py-4 border-t border-gray-100 dark:border-gray-800 space-y-1">
+        <div className="px-3 py-4 border-t border-gray-100 dark:border-gray-800 space-y-0.5">
           <button
             onClick={toggle}
             className="flex w-full items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900 transition-all"

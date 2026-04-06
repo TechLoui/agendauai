@@ -95,7 +95,7 @@ export default function Appointments() {
                 onClick={() => setFilter(f.key)}
                 className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
                   filter === f.key
-                    ? 'bg-violet-600 text-white'
+                    ? 'bg-green-600 text-white'
                     : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
                 }`}
               >
@@ -111,7 +111,7 @@ export default function Appointments() {
                 onClick={() => setStatusFilter(f.value)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                   statusFilter === f.value
-                    ? 'bg-violet-100 dark:bg-violet-950 text-violet-700 dark:text-violet-300'
+                    ? 'bg-green-100 dark:bg-green-950 text-green-700 dark:text-green-300'
                     : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
                 }`}
               >
@@ -128,7 +128,7 @@ export default function Appointments() {
             value={search}
             onChange={e => setSearch(e.target.value)}
             placeholder="Buscar por nome do cliente..."
-            className="w-full pl-10 pr-4 py-2.5 text-sm rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-violet-500"
+            className="w-full pl-10 pr-4 py-2.5 text-sm rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500"
           />
         </div>
       </Card>
@@ -156,9 +156,9 @@ export default function Appointments() {
                     <Card key={appt.id} padding={false}>
                       <div className="p-5">
                         <div className="flex items-start gap-4">
-                          <div className="flex-shrink-0 w-16 h-16 rounded-xl bg-violet-50 dark:bg-violet-950 flex flex-col items-center justify-center">
-                            <span className="text-base font-bold text-violet-700 dark:text-violet-300">{appt.startTime}</span>
-                            <span className="text-xs text-violet-400">{appt.endTime}</span>
+                          <div className="flex-shrink-0 w-16 h-16 rounded-xl bg-green-50 dark:bg-green-950 flex flex-col items-center justify-center">
+                            <span className="text-base font-bold text-green-700 dark:text-green-300">{appt.startTime}</span>
+                            <span className="text-xs text-green-400">{appt.endTime}</span>
                           </div>
 
                           <div className="flex-1 min-w-0">

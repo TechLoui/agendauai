@@ -97,13 +97,13 @@ export default function Profile() {
       {establishment?.slug && (
         <Card>
           <h2 className="font-semibold text-gray-900 dark:text-white mb-3">Seu link de agendamento</h2>
-          <div className="flex items-center gap-3 p-4 rounded-xl bg-violet-50 dark:bg-violet-950 border border-violet-100 dark:border-violet-900">
-            <span className="flex-1 text-sm text-violet-700 dark:text-violet-300 font-mono truncate">
+          <div className="flex items-center gap-3 p-4 rounded-xl bg-green-50 dark:bg-green-950 border border-green-100 dark:border-green-900">
+            <span className="flex-1 text-sm text-green-700 dark:text-green-300 font-mono truncate">
               {window.location.origin}/book/{establishment.slug}
             </span>
             <button
               onClick={copyLink}
-              className="p-2 rounded-lg text-violet-600 hover:bg-violet-100 dark:hover:bg-violet-900 transition-colors"
+              className="p-2 rounded-lg text-green-600 hover:bg-green-100 dark:hover:bg-green-900 transition-colors"
               title="Copiar"
             >
               <Copy size={16} />
@@ -112,7 +112,7 @@ export default function Profile() {
               href={`/book/${establishment.slug}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-lg text-violet-600 hover:bg-violet-100 dark:hover:bg-violet-900 transition-colors"
+              className="p-2 rounded-lg text-green-600 hover:bg-green-100 dark:hover:bg-green-900 transition-colors"
               title="Abrir página"
             >
               <ExternalLink size={16} />
@@ -125,13 +125,8 @@ export default function Profile() {
       <Card>
         <h2 className="font-semibold text-gray-900 dark:text-white mb-4">Logo</h2>
         <div className="flex items-center gap-5">
-          <Avatar
-            src={establishment?.logoUrl}
-            name={establishment?.businessName}
-            size="xl"
-          />
+          <Avatar src={establishment?.logoUrl} name={establishment?.businessName} size="xl" />
           <div>
-            {/* Input escondido — acionado via ref */}
             <input
               ref={logoInputRef}
               type="file"
@@ -156,7 +151,7 @@ export default function Profile() {
       {/* Form */}
       <Card>
         <h2 className="font-semibold text-gray-900 dark:text-white mb-5 flex items-center gap-2">
-          <User size={18} className="text-violet-500" />
+          <User size={18} className="text-green-600" />
           Informações do negócio
         </h2>
 
@@ -192,7 +187,6 @@ export default function Profile() {
           </div>
 
           <Input label="Endereço" placeholder="Rua, número, bairro, cidade" {...register('address')} />
-
           <Input label="Instagram" placeholder="@seuperfil" {...register('instagram')} />
 
           <Button type="submit" loading={saving} size="lg">

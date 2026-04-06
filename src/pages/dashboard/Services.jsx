@@ -90,10 +90,10 @@ function PhotoUploader({ uid, existingUrls = [], onChange }) {
 
         {/* Pending previews */}
         {previews.map((p, i) => (
-          <div key={p.previewUrl} className="relative group w-24 h-24 rounded-xl overflow-hidden border-2 border-violet-200 dark:border-violet-700">
+          <div key={p.previewUrl} className="relative group w-24 h-24 rounded-xl overflow-hidden border-2 border-green-200 dark:border-green-700">
             <img src={p.previewUrl} alt="" className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-violet-600/10 flex items-center justify-center">
-              <span className="text-xs text-violet-700 dark:text-violet-300 font-medium bg-white/80 dark:bg-gray-900/80 px-1.5 py-0.5 rounded">
+            <div className="absolute inset-0 bg-green-600/10 flex items-center justify-center">
+              <span className="text-xs text-green-700 dark:text-green-300 font-medium bg-white/80 dark:bg-gray-900/80 px-1.5 py-0.5 rounded">
                 Novo
               </span>
             </div>
@@ -112,7 +112,7 @@ function PhotoUploader({ uid, existingUrls = [], onChange }) {
           <button
             type="button"
             onClick={() => inputRef.current?.click()}
-            className="w-24 h-24 rounded-xl border-2 border-dashed border-gray-200 dark:border-gray-700 flex flex-col items-center justify-center gap-1 text-gray-400 hover:border-violet-400 hover:text-violet-500 transition-colors"
+            className="w-24 h-24 rounded-xl border-2 border-dashed border-gray-200 dark:border-gray-700 flex flex-col items-center justify-center gap-1 text-gray-400 hover:border-green-400 hover:text-green-500 transition-colors"
           >
             <ImagePlus size={20} />
             <span className="text-xs">Adicionar</span>
@@ -361,7 +361,7 @@ export default function Services() {
                       </p>
                     )}
                     <div className="flex items-center gap-3">
-                      <span className="text-lg font-bold text-violet-600 dark:text-violet-400">
+                      <span className="text-lg font-bold text-green-600 dark:text-green-400">
                         {formatPrice(service.price)}
                       </span>
                       <span className="text-xs text-gray-400 bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded-full">
