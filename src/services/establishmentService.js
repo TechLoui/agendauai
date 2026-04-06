@@ -1,4 +1,4 @@
-import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore'
+import { doc, getDoc, setDoc, serverTimestamp, collection, query, where, getDocs } from 'firebase/firestore'
 import { db } from '../config/firebase'
 
 const DEFAULT_WORKING_HOURS = {
@@ -17,10 +17,29 @@ export async function getEstablishment(uid) {
 }
 
 export async function getEstablishmentBySlug(slug) {
+  // Fast path: slugs collection
   const slugSnap = await getDoc(doc(db, 'slugs', slug))
-  if (!slugSnap.exists()) return null
-  const { uid } = slugSnap.data()
-  return getEstablishment(uid)
+  if (slugSnap.exists()) {
+    const { uid } = slugSnap.data()
+    return getEstablishment(uid)
+  }
+
+  // Fallback: query establishments directly (handles missing slug doc)
+  const q = query(collection(db, 'establishments'), where('slug', '==', slug))
+  const snap = await getDocs(q)
+  if (!snap.empty) {
+    const data = snap.docs[0].data()
+    // Auto-repair the missing slug document
+    await setDoc(doc(db, 'slugs', slug), {
+      uid: data.uid,
+      slug,
+      businessName: data.businessName,
+      createdAt: serverTimestamp(),
+    }).catch(() => {}) // non-critical
+    return data
+  }
+
+  return null
 }
 
 export async function createEstablishment(uid, data) {
