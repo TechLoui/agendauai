@@ -10,12 +10,10 @@ import {
   Sun,
   Moon,
   X,
-  ExternalLink,
 } from 'lucide-react'
 import { useAuth } from '../../contexts/AuthContext'
 import { useTheme } from '../../contexts/ThemeContext'
 import { logout } from '../../services/authService'
-import Avatar from '../ui/Avatar'
 import toast from 'react-hot-toast'
 
 const navItems = [
@@ -28,7 +26,7 @@ const navItems = [
 ]
 
 export default function Sidebar({ open, onClose }) {
-  const { establishment, user } = useAuth()
+  const { user } = useAuth()
   const { dark, toggle } = useTheme()
   const navigate = useNavigate()
 
@@ -66,28 +64,6 @@ export default function Sidebar({ open, onClose }) {
           <button onClick={onClose} className="lg:hidden p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-400">
             <X size={18} />
           </button>
-        </div>
-
-        {/* Business info */}
-        <div className="px-4 py-4 border-b border-gray-100 dark:border-gray-800">
-          <div className="flex items-center gap-3">
-            <Avatar src={establishment?.logoUrl} name={establishment?.businessName || user?.displayName} size="sm" />
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold text-gray-900 dark:text-white truncate">
-                {establishment?.businessName || 'Meu negócio'}
-              </p>
-              {establishment?.slug && (
-                <a
-                  href={`/book/${establishment.slug}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs text-green-600 dark:text-green-400 flex items-center gap-1 hover:underline"
-                >
-                  Ver página <ExternalLink size={10} />
-                </a>
-              )}
-            </div>
-          </div>
         </div>
 
         {/* Navigation */}

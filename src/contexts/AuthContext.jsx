@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from '../config/firebase'
 import { getEstablishment } from '../services/establishmentService'
+import { slugExists, reserveSlug } from '../services/slugService'
 
 const AuthContext = createContext(null)
 
@@ -16,6 +17,12 @@ export function AuthProvider({ children }) {
       if (firebaseUser) {
         const data = await getEstablishment(firebaseUser.uid)
         setEstablishment(data)
+        // Auto-repair slug document if missing
+        if (data?.slug) {
+          slugExists(data.slug).then(exists => {
+            if (!exists) reserveSlug(data.slug, data.uid, data.businessName).catch(() => {})
+          }).catch(() => {})
+        }
       } else {
         setEstablishment(null)
       }
@@ -28,6 +35,12 @@ export function AuthProvider({ children }) {
     if (!user) return
     const data = await getEstablishment(user.uid)
     setEstablishment(data)
+    // Auto-repair slug document if missing
+    if (data?.slug) {
+      slugExists(data.slug).then(exists => {
+        if (!exists) reserveSlug(data.slug, data.uid, data.businessName).catch(() => {})
+      }).catch(() => {})
+    }
   }
 
   return (

@@ -182,7 +182,8 @@ export default function Booking() {
         setServices(svcs.filter(s => s.isActive))
         setEmployees(emps.filter(e => e.isActive))
         setLoading(false)
-      } catch {
+      } catch (err) {
+        console.error('[Booking] erro ao carregar estabelecimento:', err)
         setNotFound(true)
         setLoading(false)
       }
