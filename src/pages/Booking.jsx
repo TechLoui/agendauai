@@ -339,34 +339,43 @@ export default function Booking() {
                       key={service.id}
                       onClick={() => toggleService(service)}
                       className={`
-                        w-full flex items-center gap-4 p-5 rounded-2xl text-left
-                        border-2 transition-all duration-150
+                        w-full rounded-2xl text-left border-2 transition-all duration-150 overflow-hidden
                         ${selected
                           ? 'border-violet-500 bg-violet-50 dark:bg-violet-950'
                           : 'border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 hover:border-violet-200 dark:hover:border-violet-800'
                         }
                       `}
                     >
-                      <div className="flex-1">
-                        <p className={`font-semibold ${selected ? 'text-violet-700 dark:text-violet-300' : 'text-gray-900 dark:text-white'}`}>
-                          {service.name}
-                        </p>
-                        {service.description && (
-                          <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5 line-clamp-1">{service.description}</p>
-                        )}
-                        <div className="flex items-center gap-3 mt-2">
-                          <span className={`text-sm font-bold ${selected ? 'text-violet-600' : 'text-gray-700 dark:text-gray-300'}`}>
-                            {formatPrice(service.price)}
-                          </span>
-                          <span className="text-xs text-gray-400 bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded-full">
-                            {formatDuration(service.duration)}
-                          </span>
+                      {/* Photos */}
+                      {service.photoUrls?.length > 0 && (
+                        <div className={`grid ${service.photoUrls.length === 2 ? 'grid-cols-2' : 'grid-cols-1'} gap-0.5`}>
+                          {service.photoUrls.map((url, i) => (
+                            <img key={i} src={url} alt={service.name} className="w-full h-32 object-cover" />
+                          ))}
                         </div>
-                      </div>
-                      <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
-                        selected ? 'border-violet-500 bg-violet-500' : 'border-gray-300 dark:border-gray-600'
-                      }`}>
-                        {selected && <CheckCircle size={14} className="text-white" />}
+                      )}
+                      <div className="flex items-center gap-4 p-4">
+                        <div className="flex-1">
+                          <p className={`font-semibold ${selected ? 'text-violet-700 dark:text-violet-300' : 'text-gray-900 dark:text-white'}`}>
+                            {service.name}
+                          </p>
+                          {service.description && (
+                            <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5 line-clamp-1">{service.description}</p>
+                          )}
+                          <div className="flex items-center gap-3 mt-2">
+                            <span className={`text-sm font-bold ${selected ? 'text-violet-600' : 'text-gray-700 dark:text-gray-300'}`}>
+                              {formatPrice(service.price)}
+                            </span>
+                            <span className="text-xs text-gray-400 bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded-full">
+                              {formatDuration(service.duration)}
+                            </span>
+                          </div>
+                        </div>
+                        <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
+                          selected ? 'border-violet-500 bg-violet-500' : 'border-gray-300 dark:border-gray-600'
+                        }`}>
+                          {selected && <CheckCircle size={14} className="text-white" />}
+                        </div>
                       </div>
                     </button>
                   )
