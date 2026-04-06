@@ -5,6 +5,7 @@ import {
   Scissors,
   Clock,
   User,
+  Users,
   LogOut,
   Sun,
   Moon,
@@ -21,6 +22,7 @@ const navItems = [
   { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard', end: true },
   { to: '/dashboard/appointments', icon: CalendarDays, label: 'Agendamentos' },
   { to: '/dashboard/services', icon: Scissors, label: 'Serviços' },
+  { to: '/dashboard/employees', icon: Users, label: 'Funcionários' },
   { to: '/dashboard/schedule', icon: Clock, label: 'Agenda' },
   { to: '/dashboard/profile', icon: User, label: 'Perfil' },
 ]

@@ -59,7 +59,7 @@ function ServiceForm({ service, onSave, onClose }) {
           {...register('duration', { required: 'Obrigatório' })}
         >
           <option value="">Selecione</option>
-          {[15, 20, 30, 45, 60, 75, 90, 120, 150, 180].map(d => (
+          {Array.from({ length: 18 }, (_, i) => (i + 1) * 20).map(d => (
             <option key={d} value={d}>{formatDuration(d)}</option>
           ))}
         </Select>

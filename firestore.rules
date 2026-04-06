@@ -2,29 +2,32 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Slugs: leitura pública, escrita apenas autenticado
     match /slugs/{slug} {
       allow read: if true;
       allow write: if request.auth != null;
     }
 
-    // Establishments: leitura pública (para página de booking), escrita apenas do dono
     match /establishments/{uid} {
       allow read: if true;
       allow create: if request.auth != null && request.auth.uid == uid;
       allow update, delete: if request.auth != null && request.auth.uid == uid;
 
-      // Services: leitura pública, escrita apenas do dono
       match /services/{serviceId} {
         allow read: if true;
         allow write: if request.auth != null && request.auth.uid == uid;
       }
 
-      // Appointments: leitura pelo dono, criação pública (clientes não autenticados)
+      // Appointments: leitura pública necessária para cálculo de slots disponíveis na página de booking
       match /appointments/{appointmentId} {
-        allow read: if request.auth != null && request.auth.uid == uid;
+        allow read: if true;
         allow create: if true;
         allow update, delete: if request.auth != null && request.auth.uid == uid;
+      }
+
+      // Employees: leitura pública (para seleção no booking), escrita apenas do dono
+      match /employees/{employeeId} {
+        allow read: if true;
+        allow write: if request.auth != null && request.auth.uid == uid;
       }
     }
   }

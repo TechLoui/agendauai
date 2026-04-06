@@ -9,6 +9,7 @@ import toast from 'react-hot-toast'
 import { getEstablishmentBySlug } from '../services/establishmentService'
 import { getServices } from '../services/servicesService'
 import { getAppointmentsByDate, createAppointment } from '../services/appointmentsService'
+import { getEmployees } from '../services/employeesService'
 import { getAvailableSlots, calculateEndTime } from '../utils/slotCalculator'
 import { generateWhatsAppLink } from '../utils/whatsappHelper'
 import { formatPrice, formatDuration, formatPhone, parsePhoneToE164 } from '../utils/formatters'
@@ -151,20 +152,21 @@ export default function Booking() {
   const [loading, setLoading] = useState(true)
   const [establishment, setEstablishment] = useState(null)
   const [services, setServices] = useState([])
+  const [employees, setEmployees] = useState([])
   const [notFound, setNotFound] = useState(false)
 
   // Wizard state
   const [step, setStep] = useState(0)
   const [selectedServices, setSelectedServices] = useState([])
+  const [selectedEmployee, setSelectedEmployee] = useState(null) // null = sem preferência
   const [selectedDate, setSelectedDate] = useState(null)
   const [selectedTime, setSelectedTime] = useState(null)
   const [slots, setSlots] = useState([])
   const [slotsLoading, setSlotsLoading] = useState(false)
-  const [booking, setBooking] = useState(null) // created appointment
+  const [booking, setBooking] = useState(null)
   const [submitting, setSubmitting] = useState(false)
 
-  const { register, handleSubmit, watch, formState: { errors } } = useForm()
-  const phoneValue = watch('phone', '')
+  const { register, handleSubmit, formState: { errors } } = useForm()
 
   // Load establishment
   useEffect(() => {
@@ -172,9 +174,13 @@ export default function Booking() {
       try {
         const est = await getEstablishmentBySlug(slug)
         if (!est) { setNotFound(true); setLoading(false); return }
-        const svcs = await getServices(est.uid)
+        const [svcs, emps] = await Promise.all([
+          getServices(est.uid),
+          getEmployees(est.uid),
+        ])
         setEstablishment(est)
         setServices(svcs.filter(s => s.isActive))
+        setEmployees(emps.filter(e => e.isActive))
         setLoading(false)
       } catch {
         setNotFound(true)
@@ -237,6 +243,8 @@ export default function Booking() {
         date: selectedDate,
         startTime: selectedTime,
         endTime,
+        employeeId: selectedEmployee?.id || null,
+        employeeName: selectedEmployee?.name || null,
         notes: '',
       })
 
@@ -366,6 +374,64 @@ export default function Booking() {
               </div>
             )}
 
+            {/* Seleção de profissional — só aparece se houver funcionários */}
+            {employees.length > 0 && selectedServices.length > 0 && (
+              <div className="mb-5">
+                <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 flex items-center gap-2">
+                  <User size={15} className="text-violet-500" />
+                  Escolha o profissional
+                </h3>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                  {/* Opção sem preferência */}
+                  <button
+                    onClick={() => setSelectedEmployee(null)}
+                    className={`
+                      flex flex-col items-center gap-2 p-3 rounded-2xl border-2 transition-all
+                      ${selectedEmployee === null
+                        ? 'border-violet-500 bg-violet-50 dark:bg-violet-950'
+                        : 'border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 hover:border-violet-200'
+                      }
+                    `}
+                  >
+                    <div className="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-400">
+                      <User size={18} />
+                    </div>
+                    <span className={`text-xs font-medium text-center ${selectedEmployee === null ? 'text-violet-700 dark:text-violet-300' : 'text-gray-600 dark:text-gray-400'}`}>
+                      Sem preferência
+                    </span>
+                  </button>
+
+                  {employees
+                    .filter(emp => {
+                      // Mostra funcionários que realizam pelo menos um dos serviços selecionados
+                      if (!emp.serviceIds?.length) return true
+                      return selectedServices.some(s => emp.serviceIds.includes(s.id))
+                    })
+                    .map(emp => {
+                      const isSelected = selectedEmployee?.id === emp.id
+                      return (
+                        <button
+                          key={emp.id}
+                          onClick={() => setSelectedEmployee(isSelected ? null : emp)}
+                          className={`
+                            flex flex-col items-center gap-2 p-3 rounded-2xl border-2 transition-all
+                            ${isSelected
+                              ? 'border-violet-500 bg-violet-50 dark:bg-violet-950'
+                              : 'border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 hover:border-violet-200'
+                            }
+                          `}
+                        >
+                          <Avatar name={emp.name} size="sm" />
+                          <span className={`text-xs font-medium text-center leading-tight ${isSelected ? 'text-violet-700 dark:text-violet-300' : 'text-gray-700 dark:text-gray-300'}`}>
+                            {emp.name.split(' ')[0]}
+                          </span>
+                        </button>
+                      )
+                    })}
+                </div>
+              </div>
+            )}
+
             {selectedServices.length > 0 && (
               <div className="bg-white dark:bg-gray-900 rounded-2xl p-4 border border-violet-100 dark:border-violet-900 mb-4">
                 <div className="flex justify-between text-sm mb-1">
@@ -376,6 +442,12 @@ export default function Booking() {
                   <span className="text-gray-500 dark:text-gray-400">Duração</span>
                   <span className="text-gray-700 dark:text-gray-300">{formatDuration(totalDuration)}</span>
                 </div>
+                {selectedEmployee && (
+                  <div className="flex justify-between text-sm border-t border-gray-100 dark:border-gray-800 pt-2 mt-2">
+                    <span className="text-gray-500 dark:text-gray-400">Profissional</span>
+                    <span className="text-violet-600 dark:text-violet-400 font-medium">{selectedEmployee.name}</span>
+                  </div>
+                )}
               </div>
             )}
 
@@ -484,6 +556,12 @@ export default function Booking() {
                   <span className="text-gray-500 dark:text-gray-400">Horário</span>
                   <span className="text-gray-900 dark:text-white">{selectedTime}</span>
                 </div>
+                {selectedEmployee && (
+                  <div className="flex justify-between">
+                    <span className="text-gray-500 dark:text-gray-400">Profissional</span>
+                    <span className="text-gray-900 dark:text-white">{selectedEmployee.name}</span>
+                  </div>
+                )}
                 <div className="flex justify-between border-t border-violet-200 dark:border-violet-800 pt-2 mt-2">
                   <span className="font-semibold text-gray-700 dark:text-gray-300">Total</span>
                   <span className="font-bold text-violet-700 dark:text-violet-300">{formatPrice(totalPrice)}</span>

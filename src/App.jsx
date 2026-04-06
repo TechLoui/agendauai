@@ -17,6 +17,7 @@ import Onboarding from './pages/Onboarding'
 import Dashboard from './pages/dashboard/Dashboard'
 import Appointments from './pages/dashboard/Appointments'
 import Services from './pages/dashboard/Services'
+import Employees from './pages/dashboard/Employees'
 import Schedule from './pages/dashboard/Schedule'
 import Profile from './pages/dashboard/Profile'
 
@@ -40,6 +41,7 @@ export default function App() {
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/dashboard/appointments" element={<Appointments />} />
                 <Route path="/dashboard/services" element={<Services />} />
+                <Route path="/dashboard/employees" element={<Employees />} />
                 <Route path="/dashboard/schedule" element={<Schedule />} />
                 <Route path="/dashboard/profile" element={<Profile />} />
               </Route>

@@ -171,13 +171,14 @@ export default function Onboarding() {
 
               <Select
                 label="Duração padrão do slot (em minutos)"
+                defaultValue="20"
                 {...register('slotDuration')}
               >
-                <option value="15">15 minutos</option>
                 <option value="20">20 minutos</option>
-                <option value="30" selected>30 minutos</option>
-                <option value="45">45 minutos</option>
+                <option value="40">40 minutos</option>
                 <option value="60">1 hora</option>
+                <option value="80">1h 20min</option>
+                <option value="120">2 horas</option>
               </Select>
 
               <Button type="submit" fullWidth size="lg">Próximo</Button>
