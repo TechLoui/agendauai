@@ -1,4 +1,4 @@
-import { doc, getDoc, setDoc, updateDoc, serverTimestamp } from 'firebase/firestore'
+import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore'
 import { db } from '../config/firebase'
 
 const DEFAULT_WORKING_HOURS = {
@@ -45,7 +45,7 @@ export async function createEstablishment(uid, data) {
 
 export async function updateEstablishment(uid, data) {
   const ref = doc(db, 'establishments', uid)
-  await updateDoc(ref, { ...data, updatedAt: serverTimestamp() })
+  await setDoc(ref, { ...data, updatedAt: serverTimestamp() }, { merge: true })
 }
 
 export async function completeOnboarding(uid, data) {

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { Camera, User, ExternalLink, Copy } from 'lucide-react'
 import toast from 'react-hot-toast'
@@ -28,6 +28,7 @@ export default function Profile() {
   const { user, establishment, refreshEstablishment } = useAuth()
   const [saving, setSaving] = useState(false)
   const [uploadingLogo, setUploadingLogo] = useState(false)
+  const logoInputRef = useRef()
 
   const { register, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
@@ -44,18 +45,22 @@ export default function Profile() {
   async function handleLogoUpload(e) {
     const file = e.target.files?.[0]
     if (!file) return
+    e.target.value = ''
+
     if (file.size > 2 * 1024 * 1024) {
       toast.error('Imagem muito grande. Máximo 2MB.')
       return
     }
+
     setUploadingLogo(true)
     try {
       const url = await uploadImage(user.uid, file, 'logos')
       await updateEstablishment(user.uid, { logoUrl: url })
       await refreshEstablishment()
       toast.success('Logo atualizada!')
-    } catch {
-      toast.error('Erro ao fazer upload.')
+    } catch (err) {
+      console.error(err)
+      toast.error('Erro ao fazer upload. Verifique as regras do Storage.')
     } finally {
       setUploadingLogo(false)
     }
@@ -67,7 +72,8 @@ export default function Profile() {
       await updateEstablishment(user.uid, data)
       await refreshEstablishment()
       toast.success('Perfil atualizado!')
-    } catch {
+    } catch (err) {
+      console.error(err)
       toast.error('Erro ao salvar.')
     } finally {
       setSaving(false)
@@ -95,7 +101,11 @@ export default function Profile() {
             <span className="flex-1 text-sm text-violet-700 dark:text-violet-300 font-mono truncate">
               {window.location.origin}/book/{establishment.slug}
             </span>
-            <button onClick={copyLink} className="p-2 rounded-lg text-violet-600 hover:bg-violet-100 dark:hover:bg-violet-900 transition-colors" title="Copiar">
+            <button
+              onClick={copyLink}
+              className="p-2 rounded-lg text-violet-600 hover:bg-violet-100 dark:hover:bg-violet-900 transition-colors"
+              title="Copiar"
+            >
               <Copy size={16} />
             </button>
             <a
@@ -121,25 +131,24 @@ export default function Profile() {
             size="xl"
           />
           <div>
-            <label className="cursor-pointer">
-              <input
-                type="file"
-                accept="image/*"
-                className="hidden"
-                onChange={handleLogoUpload}
-                disabled={uploadingLogo}
-              />
-              <Button
-                as="span"
-                variant="secondary"
-                size="sm"
-                loading={uploadingLogo}
-                icon={<Camera size={14} />}
-              >
-                {uploadingLogo ? 'Enviando...' : 'Alterar logo'}
-              </Button>
-            </label>
-            <p className="text-xs text-gray-400 mt-2">JPG ou PNG, máximo 2MB</p>
+            {/* Input escondido — acionado via ref */}
+            <input
+              ref={logoInputRef}
+              type="file"
+              accept="image/jpeg,image/png,image/webp"
+              className="hidden"
+              onChange={handleLogoUpload}
+            />
+            <Button
+              variant="secondary"
+              size="sm"
+              loading={uploadingLogo}
+              icon={<Camera size={14} />}
+              onClick={() => logoInputRef.current?.click()}
+            >
+              {uploadingLogo ? 'Enviando...' : 'Alterar logo'}
+            </Button>
+            <p className="text-xs text-gray-400 mt-2">JPG, PNG ou WebP • máx. 2MB</p>
           </div>
         </div>
       </Card>
@@ -158,7 +167,6 @@ export default function Profile() {
               error={errors.businessName?.message}
               {...register('businessName', { required: 'Obrigatório' })}
             />
-
             <Select label="Categoria" {...register('category')}>
               {CATEGORIES.map(c => (
                 <option key={c.value} value={c.value}>{c.label}</option>
